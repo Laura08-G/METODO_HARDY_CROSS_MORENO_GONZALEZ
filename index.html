@@ -1,12 +1,174 @@
 <!DOCTYPE html>
 <html lang="es">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Mi primera página</title>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Portada Proyecto de Grado</title>
+<style>
+    body {
+        margin: 0;
+        padding: 0;
+        font-family: Arial, sans-serif;
+        background: #0d1b2a;
+        color: white;
+        text-align: center;
+        overflow-x: hidden;
+    }
+
+    /* Fondo solo para la parte de arriba */
+    .top-section {
+        position: relative;
+        height: 60vh;
+        overflow: hidden;
+    }
+
+    /* Contenedor del título */
+    .overlay {
+        position: relative;
+        z-index: 2;
+        background-color: rgba(0, 0, 0, 0.5);
+        padding: 40px;
+        border-radius: 15px;
+        max-width: 900px;
+        margin: auto;
+        margin-top: 15vh;
+    }
+
+    h1 {
+        font-size: 2.2em;
+        margin-bottom: 20px;
+    }
+
+    h2 {
+        font-size: 1.3em;
+        margin-top: 0;
+    }
+
+    /* Estilo y animación de gotas */
+    .drop {
+        position: absolute;
+        top: -20px;
+        width: 10px;
+        height: 10px;
+        background: rgba(255, 255, 255, 0.7);
+        border-radius: 50%;
+        animation: fall linear infinite;
+    }
+
+    @keyframes fall {
+        to {
+            transform: translateY(100vh);
+            opacity: 0;
+        }
+    }
+
+    /* Franja separadora */
+    .franja {
+        background-color: #0077b6;
+        padding: 15px;
+        font-weight: bold;
+        font-size: 1.2em;
+        letter-spacing: 1px;
+    }
+
+    /* Parte inferior */
+    .bottom-section {
+        background-color: #14273d;
+        padding: 30px;
+        display: flex;
+        flex-wrap: wrap;
+        justify-content: center;
+        gap: 20px;
+    }
+
+    /* Estilo 1: Neón Azul */
+    .grafica-neon {
+        width: 418px;
+        height: 209px;
+        border: 5px solid rgba(0, 255, 255, 1);
+        border-radius: 20px;
+        box-shadow: 0 0 25px rgba(0, 255, 255, 0.8),
+                    0 0 50px rgba(0, 255, 255, 0.6);
+        background-color: black;
+        padding: 5px;
+    }
+
+    /* Estilo 2: Neón Verde */
+    .grafica-verde {
+        width: 418px;
+        height: 209px;
+        border: 5px solid rgba(0, 255, 0, 1);
+        border-radius: 20px;
+        box-shadow: 0 0 25px rgba(0, 255, 0, 0.8),
+                    0 0 50px rgba(0, 255, 0, 0.6);
+        background-color: black;
+        padding: 5px;
+    }
+
+    iframe {
+        width: 100%;
+        height: 100%;
+        border: none;
+        border-radius: 15px;
+    }
+
+    /* Nombres */
+    .authors {
+        margin-top: 20px;
+        font-size: 1em;
+        opacity: 0.85;
+        width: 100%;
+    }
+</style>
 </head>
 <body>
-    <h1>Hola Mundo</h1>
-    <p>Esta es mi primera página web creada con HTML.</p>
+
+    <!-- Sección superior con gotas -->
+    <div class="top-section" id="top-section">
+        <script>
+            const totalDrops = 50;
+            const topSection = document.getElementById("top-section");
+            for (let i = 0; i < totalDrops; i++) {
+                const drop = document.createElement("div");
+                drop.classList.add("drop");
+                drop.style.left = Math.random() * 100 + "vw";
+                drop.style.animationDuration = 2 + Math.random() * 3 + "s";
+                drop.style.animationDelay = Math.random() * 5 + "s";
+                topSection.appendChild(drop);
+            }
+        </script>
+
+        <div class="overlay">
+            <h2>Universidad Distrital Francisco José de Caldas</h2>
+            <h1>Aplicación de IoT en el monitoreo de un modelo hidráulico experimental basado en el método de Hardy Cross</h1>
+        </div>
+    </div>
+
+    <!-- Franja separadora -->
+    <div class="franja">
+        |  Monitoreo de caudal  |  Tiempo real  |
+    </div>
+
+    <!-- Parte inferior con 5 gráficas -->
+    <div class="bottom-section">
+        <div class="grafica-neon">
+            <iframe src="https://thingspeak.mathworks.com/channels/3013756/charts/1?bgcolor=%23000000&color=%2300ffff&dynamic=true&results=60&type=line&update=15"></iframe>
+        </div>
+        <div class="grafica-verde">
+            <iframe src="https://thingspeak.mathworks.com/channels/3013756/charts/2?bgcolor=%23000000&color=%2300ff00&dynamic=true&results=60&type=line&update=15"></iframe>
+        </div>
+        <div class="grafica-neon">
+            <iframe src="https://thingspeak.mathworks.com/channels/3013756/charts/3?bgcolor=%23000000&color=%2300ffff&dynamic=true&results=60&type=line&update=15"></iframe>
+        </div>
+        <div class="grafica-verde">
+            <iframe src="https://thingspeak.mathworks.com/channels/3013756/charts/4?bgcolor=%23000000&color=%2300ff00&dynamic=true&results=60&type=line&update=15"></iframe>
+        </div>
+        <div class="grafica-neon">
+            <iframe src="https://thingspeak.mathworks.com/channels/3013756/charts/5?bgcolor=%23000000&color=%2300ffff&dynamic=true&results=60&type=line&update=15"></iframe>
+        </div>
+
+        <div class="authors">Brayan Moreno, Laura Gonzalez</div>
+    </div>
+
 </body>
 </html>
