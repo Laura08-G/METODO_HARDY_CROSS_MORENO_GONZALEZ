@@ -1,8 +1,8 @@
 <!DOCTYPE html>
 <html lang="es">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
 <title>Portada Proyecto de Grado</title>
 <style>
     body {
@@ -103,6 +103,9 @@
                     0 0 50px rgba(0, 255, 0, 0.6);
         background-color: black;
         padding: 5px;
+        display: flex;
+        justify-content: center;
+        align-items: center;
     }
 
     iframe {
@@ -110,6 +113,11 @@
         height: 100%;
         border: none;
         border-radius: 15px;
+    }
+
+    canvas {
+        max-width: 100%;
+        max-height: 100%;
     }
 
     /* Nombres */
@@ -120,6 +128,7 @@
         width: 100%;
     }
 </style>
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 </head>
 <body>
 
@@ -149,7 +158,7 @@
         |  Monitoreo de caudal  |  Tiempo real  |
     </div>
 
-    <!-- Parte inferior con 5 gráficas -->
+    <!-- Parte inferior con 5 gráficas + sexta gráfica -->
     <div class="bottom-section">
         <div class="grafica-neon">
             <iframe src="https://thingspeak.mathworks.com/channels/3013756/charts/1?bgcolor=%23000000&color=%2300ffff&dynamic=true&results=60&type=line&update=15"></iframe>
@@ -167,8 +176,78 @@
             <iframe src="https://thingspeak.mathworks.com/channels/3013756/charts/5?bgcolor=%23000000&color=%2300ffff&dynamic=true&results=60&type=line&update=15"></iframe>
         </div>
 
+        <!-- Sexta gráfica: barra con valores de sensores -->
+        <div class="grafica-verde">
+            <canvas id="combinedBarChart"></canvas>
+        </div>
+
         <div class="authors">Brayan Moreno, Laura Gonzalez</div>
     </div>
 
+<script>
+// Canal y campos que quieres mostrar
+const channelId = 3013756;
+const fields = [1, 2, 3, 4, 5];
+
+// Función para obtener el último valor de cada campo
+async function getLastFieldValue(field) {
+    const url = `https://api.thingspeak.com/channels/${channelId}/fields/${field}/last.json`;
+    try {
+        const response = await fetch(url);
+        const data = await response.json();
+        return parseFloat(data[`field${field}`]) || 0;
+    } catch (error) {
+        console.error('Error al obtener datos campo', field, error);
+        return 0;
+    }
+}
+
+async function loadDataAndDrawChart() {
+    const labels = fields.map(f => `Sensor ${f}`);
+    const dataValues = [];
+
+    for (const f of fields) {
+        const val = await getLastFieldValue(f);
+        dataValues.push(val);
+    }
+
+    const ctx = document.getElementById('combinedBarChart').getContext('2d');
+    new Chart(ctx, {
+        type: 'bar',
+        data: {
+            labels: labels,
+            datasets: [{
+                label: 'Valor actual',
+                data: dataValues,
+                backgroundColor: 'rgba(0, 255, 0, 0.7)',
+                borderColor: 'rgba(0, 255, 0, 1)',
+                borderWidth: 1,
+                borderRadius: 8,
+            }]
+        },
+        options: {
+            responsive: true,
+            scales: {
+                y: {
+                    beginAtZero: true,
+                    ticks: { color: 'white' },
+                    grid: { color: 'rgba(255,255,255,0.1)' }
+                },
+                x: {
+                    ticks: { color: 'white' },
+                    grid: { display: false }
+                }
+            },
+            plugins: {
+                legend: { labels: { color: 'white' } }
+            }
+        }
+    });
+}
+
+loadDataAndDrawChart();
+</script>
+
 </body>
 </html>
+
