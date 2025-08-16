@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+<!DOCTYPE html> 
 <html lang="es">
 <head>
 <meta charset="UTF-8" />
@@ -15,14 +15,12 @@
         overflow-x: hidden;
     }
 
-    /* Fondo solo para la parte de arriba */
     .top-section {
         position: relative;
         height: 60vh;
         overflow: hidden;
     }
 
-    /* Contenedor del título */
     .overlay {
         position: relative;
         z-index: 2;
@@ -34,17 +32,9 @@
         margin-top: 15vh;
     }
 
-    h1 {
-        font-size: 2.2em;
-        margin-bottom: 20px;
-    }
+    h1 { font-size: 2.2em; margin-bottom: 20px; }
+    h2 { font-size: 1.3em; margin-top: 0; }
 
-    h2 {
-        font-size: 1.3em;
-        margin-top: 0;
-    }
-
-    /* Estilo y animación de gotas */
     .drop {
         position: absolute;
         top: -20px;
@@ -56,13 +46,9 @@
     }
 
     @keyframes fall {
-        to {
-            transform: translateY(100vh);
-            opacity: 0;
-        }
+        to { transform: translateY(100vh); opacity: 0; }
     }
 
-    /* Franja separadora */
     .franja {
         background-color: #0077b6;
         padding: 15px;
@@ -71,7 +57,29 @@
         letter-spacing: 1px;
     }
 
-    /* Parte inferior */
+    .info-section {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        background-color: #14273d;
+        padding: 30px;
+        gap: 30px;
+        flex-wrap: wrap;
+        text-align: justify;
+    }
+
+    .info-section img {
+        max-width: 300px;
+        border-radius: 15px;
+        box-shadow: 0 0 20px rgba(255,255,255,0.3);
+    }
+
+    .info-text {
+        max-width: 600px;
+        font-size: 1em;
+        line-height: 1.5;
+    }
+
     .bottom-section {
         background-color: #14273d;
         padding: 30px;
@@ -81,7 +89,6 @@
         gap: 20px;
     }
 
-    /* Estilo 1: Neón Azul */
     .grafica-neon {
         width: 418px;
         height: 209px;
@@ -93,7 +100,6 @@
         padding: 5px;
     }
 
-    /* Estilo 2: Neón Verde */
     .grafica-verde {
         width: 418px;
         height: 209px;
@@ -115,24 +121,69 @@
         border-radius: 15px;
     }
 
-    canvas {
-        max-width: 100%;
-        max-height: 100%;
+    .datos {
+        background-color: yellow;
+        color: black;
+        font-weight: bold;
+        padding: 10px;
+        border-radius: 10px;
+        margin: 20px auto;
+        text-align: center;
+        width: 80%;
     }
 
-    /* Nombres */
+    table, th, td { border: 1px solid yellow; }
+    table {
+        border-collapse: collapse;
+        width: 90%;
+        margin: 20px auto;
+        font-size: 14px;
+        border-radius: 20px;
+        border: 3px solid yellow;
+        overflow: hidden;
+        text-align: center;
+        color: white;
+    }
+    th, td { padding: 8px; }
+
     .authors {
         margin-top: 20px;
         font-size: 1em;
         opacity: 0.85;
         width: 100%;
     }
+
+    .pdf-section {
+        margin: 20px auto;
+        text-align: center;
+    }
+
+    .pdf-section img {
+        width: 80px;
+        display: block;
+        margin: 0 auto 10px auto;
+    }
+
+    .pdf-button {
+        margin: 10px auto;
+        padding: 10px 20px;
+        font-size: 16px;
+        font-weight: bold;
+        background: yellow;
+        color: black;
+        border: none;
+        border-radius: 10px;
+        cursor: pointer;
+        transition: 0.3s;
+    }
+    .pdf-button:hover { background: orange; }
 </style>
 <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf-autotable/3.5.25/jspdf.plugin.autotable.min.js"></script>
 </head>
 <body>
 
-    <!-- Sección superior con gotas -->
     <div class="top-section" id="top-section">
         <script>
             const totalDrops = 50;
@@ -146,81 +197,111 @@
                 topSection.appendChild(drop);
             }
         </script>
-
         <div class="overlay">
             <h2>Universidad Distrital Francisco José de Caldas</h2>
             <h1>Aplicación de IoT en el monitoreo de un modelo hidráulico experimental basado en el método de Hardy Cross</h1>
         </div>
     </div>
 
-    <!-- Franja separadora -->
-    <div class="franja">
-        |  Monitoreo de caudal  |  Tiempo real  |
+    <!-- Nueva franja de Información Proyecto -->
+    <div class="franja">| Información Proyecto | Tiempo real |</div>
+    <div class="info-section">
+        <img src="MONTAJE.jpg" alt="Montaje Experimental">
+        <div class="info-text">
+            El presente proyecto tiene como finalidad el desarrollo de un sistema de monitoreo en tiempo real aplicado a un modelo hidráulico experimental, utilizando tecnologías de Internet de las Cosas (IoT) y la plataforma Arduino (ESP32).  
+            Se integraron sensores de caudal tipo YF-S201, una pantalla TFT para visualización local, un módulo lector de microSD para respaldo de datos, y conexión a la plataforma ThingSpeak para la supervisión remota.  
+            Los datos obtenidos fueron analizados mediante el método iterativo de Hardy Cross con el fin de verificar el equilibrio hidráulico en redes cerradas de tuberías.  
+            Esta propuesta demuestra cómo la automatización y la IoT pueden mejorar la precisión, eficiencia y accesibilidad del monitoreo en sistemas hidráulicos, representando una alternativa moderna frente a métodos tradicionales.
+        </div>
     </div>
 
-    <!-- Parte inferior con 5 gráficas + sexta gráfica -->
+    <div class="franja">|  Monitoreo de caudal  |  Tiempo real  |</div>
+
     <div class="bottom-section">
-        <div class="grafica-neon">
-            <iframe src="https://thingspeak.mathworks.com/channels/3013756/charts/1?bgcolor=%23000000&color=%2300ffff&dynamic=true&results=60&type=line&update=15"></iframe>
-        </div>
-        <div class="grafica-verde">
-            <iframe src="https://thingspeak.mathworks.com/channels/3013756/charts/2?bgcolor=%23000000&color=%2300ff00&dynamic=true&results=60&type=line&update=15"></iframe>
-        </div>
-        <div class="grafica-neon">
-            <iframe src="https://thingspeak.mathworks.com/channels/3013756/charts/3?bgcolor=%23000000&color=%2300ffff&dynamic=true&results=60&type=line&update=15"></iframe>
-        </div>
-        <div class="grafica-verde">
-            <iframe src="https://thingspeak.mathworks.com/channels/3013756/charts/4?bgcolor=%23000000&color=%2300ff00&dynamic=true&results=60&type=line&update=15"></iframe>
-        </div>
-        <div class="grafica-neon">
-            <iframe src="https://thingspeak.mathworks.com/channels/3013756/charts/5?bgcolor=%23000000&color=%2300ffff&dynamic=true&results=60&type=line&update=15"></iframe>
-        </div>
-
-        <!-- Sexta gráfica: barra con valores de sensores -->
-        <div class="grafica-verde">
-            <canvas id="combinedBarChart"></canvas>
-        </div>
-
-        <div class="authors">Brayan Moreno, Laura Gonzalez</div>
+        <div class="grafica-neon"><iframe src="https://thingspeak.mathworks.com/channels/3013756/charts/1?bgcolor=%23000000&color=%2300ffff&dynamic=true&results=60&type=line&update=15"></iframe></div>
+        <div class="grafica-verde"><iframe src="https://thingspeak.mathworks.com/channels/3013756/charts/2?bgcolor=%23000000&color=%2300ff00&dynamic=true&results=60&type=line&update=15"></iframe></div>
+        <div class="grafica-neon"><iframe src="https://thingspeak.mathworks.com/channels/3013756/charts/3?bgcolor=%23000000&color=%2300ffff&dynamic=true&results=60&type=line&update=15"></iframe></div>
+        <div class="grafica-verde"><iframe src="https://thingspeak.mathworks.com/channels/3013756/charts/4?bgcolor=%23000000&color=%2300ff00&dynamic=true&results=60&type=line&update=15"></iframe></div>
+        <div class="grafica-neon"><iframe src="https://thingspeak.mathworks.com/channels/3013756/charts/5?bgcolor=%23000000&color=%2300ffff&dynamic=true&results=60&type=line&update=15"></iframe></div>
+        <div class="grafica-verde"><canvas id="combinedBarChart"></canvas></div>
     </div>
+
+    <div class="franja">|  Datos  |  Tiempo real  | </div>
+
+    <div class="datos">
+        <h1>Proyecto de Grado - Método de Hardy Cross</h1>
+        <p>(Moreno, Gonzalez)</p>
+    </div>
+
+    <table id="dataTable">
+        <thead>
+            <tr>
+                <th>Sensor</th>
+                <th>Caudal (L/min)</th>
+                <th>Date & Time</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr><td>YF-S201 #1</td><td id="sensor1">-</td><td id="time1">-</td></tr>
+            <tr><td>YF-S201 #2</td><td id="sensor2">-</td><td id="time2">-</td></tr>
+            <tr><td>YF-S201 #3</td><td id="sensor3">-</td><td id="time3">-</td></tr>
+            <tr><td>YF-S201 #4</td><td id="sensor4">-</td><td id="time4">-</td></tr>
+            <tr><td>YF-S201 #5</td><td id="sensor5">-</td><td id="time5">-</td></tr>
+        </tbody>
+    </table>
+
+    <div class="franja">|  Descarga de información  |  Tiempo real  |</div>
+
+    <!-- Imagen + Botón PDF -->
+    <div class="pdf-section">
+        <img src="pdf-icon.png" alt="Descargar PDF">
+        <button class="pdf-button" onclick="downloadPDF()">Descargar PDF</button>
+    </div>
+
+    <div class="authors">Brayan Moreno, Laura Gonzalez</div>
 
 <script>
-// Canal y campos que quieres mostrar
 const channelId = 3013756;
 const fields = [1, 2, 3, 4, 5];
 
-// Función para obtener el último valor de cada campo
 async function getLastFieldValue(field) {
     const url = `https://api.thingspeak.com/channels/${channelId}/fields/${field}/last.json`;
     try {
         const response = await fetch(url);
         const data = await response.json();
-        return parseFloat(data[`field${field}`]) || 0;
+        return {
+            value: parseFloat(data[`field${field}`]) || 0,
+            time: new Date(data.created_at).toLocaleString()
+        };
     } catch (error) {
-        console.error('Error al obtener datos campo', field, error);
-        return 0;
+        console.error("Error al obtener datos campo", field, error);
+        return { value: 0, time: "-" };
     }
 }
 
-async function loadDataAndDrawChart() {
+async function updateTableAndChart() {
     const labels = fields.map(f => `Sensor ${f}`);
     const dataValues = [];
 
-    for (const f of fields) {
-        const val = await getLastFieldValue(f);
-        dataValues.push(val);
+    for (let i = 0; i < fields.length; i++) {
+        const f = fields[i];
+        const { value, time } = await getLastFieldValue(f);
+        dataValues.push(value);
+        document.getElementById(`sensor${i+1}`).innerText = value.toFixed(2);
+        document.getElementById(`time${i+1}`).innerText = time;
     }
 
-    const ctx = document.getElementById('combinedBarChart').getContext('2d');
-    new Chart(ctx, {
-        type: 'bar',
+    const ctx = document.getElementById("combinedBarChart").getContext("2d");
+    if (window.barChart) window.barChart.destroy();
+    window.barChart = new Chart(ctx, {
+        type: "bar",
         data: {
             labels: labels,
             datasets: [{
-                label: 'Valor actual',
+                label: "Valor actual",
                 data: dataValues,
-                backgroundColor: 'rgba(0, 255, 0, 0.7)',
-                borderColor: 'rgba(0, 255, 0, 1)',
+                backgroundColor: "rgba(0, 255, 0, 0.7)",
+                borderColor: "rgba(0, 255, 0, 1)",
                 borderWidth: 1,
                 borderRadius: 8,
             }]
@@ -228,24 +309,38 @@ async function loadDataAndDrawChart() {
         options: {
             responsive: true,
             scales: {
-                y: {
-                    beginAtZero: true,
-                    ticks: { color: 'white' },
-                    grid: { color: 'rgba(255,255,255,0.1)' }
-                },
-                x: {
-                    ticks: { color: 'white' },
-                    grid: { display: false }
-                }
+                y: { beginAtZero: true, ticks: { color: "white" }, grid: { color: "rgba(255,255,255,0.1)" } },
+                x: { ticks: { color: "white" }, grid: { display: false } }
             },
-            plugins: {
-                legend: { labels: { color: 'white' } }
-            }
+            plugins: { legend: { labels: { color: "white" } } }
         }
     });
 }
 
-loadDataAndDrawChart();
+// Exportar tabla como PDF
+function downloadPDF() {
+    const { jsPDF } = window.jspdf;
+    const doc = new jsPDF();
+
+    // Texto de cabecera
+    doc.text("Reporte de Sensores - Método de Hardy Cross", 14, 15);
+
+    // Insertar imagen (logo PDF)
+    const img = new Image();
+    img.src = "pdf-icon.png"; 
+    img.onload = function () {
+        doc.addImage(img, "PNG", 160, 5, 40, 40);
+
+        // Tabla de datos
+        doc.autoTable({ html: "#dataTable", startY: 50 });
+
+        // Guardar archivo
+        doc.save("reporte_sensores.pdf");
+    };
+}
+
+updateTableAndChart();
+setInterval(updateTableAndChart, 20000);
 </script>
 
 </body>
